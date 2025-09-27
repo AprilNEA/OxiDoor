@@ -27,12 +27,12 @@ pub async fn door_control(
         // Asynchronous wait for any button pressed (low level)
         embassy_futures::select::select(button1.wait_for_low(), button2.wait_for_low()).await;
 
-        door_lock.set_low(); // Unlock
+        let _ = door_lock.set_low(); // Unlock
         
         // Asynchronous delay 3 seconds
         Timer::after(Duration::from_secs(3)).await;
 
-        door_lock.set_high(); // Re-lock
+        let _ = door_lock.set_high(); // Re-lock
 
         // Wait for button release
         loop {
