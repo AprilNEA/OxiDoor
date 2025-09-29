@@ -1,0 +1,33 @@
+[package]
+name = "oxidoor-embedded-server"
+edition = "2024"
+version = { workspace = true }
+description = { workspace = true }
+authors = { workspace = true }
+license = { workspace = true }
+repository = { workspace = true }
+
+[features]
+default = ["oxidoor-core/sqlite"]
+sqlite = ["oxidoor-core/sqlite"]
+postgresql = ["oxidoor-core/postgresql"]
+
+[dependencies]
+oxidoor-core = { path = "../oxidoor-core" }
+# Asynchronous runtime
+tokio = { workspace = true }
+# Serialization
+serde = { workspace = true }
+serde_json = { workspace = true }
+strum = { workspace = true }
+# Data Structure
+once_cell = { workspace = true }
+# Error Handling
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+# Logging
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+
+# MQTT
+rumqttc = "0.25"

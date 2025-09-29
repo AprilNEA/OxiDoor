@@ -1,0 +1,57 @@
+[package]
+name = "oxidoor-web-server"
+edition = "2024"
+version.workspace = true
+description.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[features]
+default = ["oxidoor-core/sqlite"]
+sqlite = ["oxidoor-core/sqlite"]
+postgresql = ["oxidoor-core/postgresql"]
+
+[dependencies]
+oxidoor-core = { path = "../oxidoor-core" }
+# Asynchronous runtime
+tokio = { workspace = true }
+# Serialization
+serde = { workspace = true }
+serde_json = { workspace = true }
+strum = { workspace = true }
+# Data Structure
+once_cell = { workspace = true }
+# Error Handling
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+# Logging
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+
+# Web Server Framework
+hyper = { version = "1.0", features = ["full"] }
+tower = "0.5"
+tower-http = { version = "0.6.6", features = ["fs", "trace", "cors"] }
+axum = { version = "0.8", features = [
+  "json",
+  "query",
+  "form",
+  "tokio",
+  "matched-path",
+  "original-uri",
+] }
+axum-extra = { version = "0.10", features = ["cookie", "typed-header"] }
+# OpenAPI
+utoipa = { version = "5.4", features = [
+  "axum_extras",
+  "uuid",
+  "chrono",
+  "time",
+  "url",
+  "preserve_order",
+  "preserve_path_order",
+] }
+utoipa-axum = "0.2"
+utoipa-scalar = { version = "0.3", features = ["axum"] }
+utoipa-swagger-ui = { version = "9", features = ["axum"] }

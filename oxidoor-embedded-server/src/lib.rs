@@ -14,6 +14,24 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-fn main() {
-    embuild::espidf::sysenv::output();
+mod config;
+use once_cell::sync::Lazy;
+
+static CONFIG: Lazy<config::Settings> =
+    Lazy::new(|| config::Settings::new().expect("Failed to load configuration"));
+
+#[tokio::main]
+async fn main() {
+    tracing_subscriber::registry()
+        .with(
+            tracing_subscriber::fmt::layer()
+                .with_target(false)
+                .with_thread_ids(true)
+                .with_level(true)
+                .with_filter(tracing_subscriber::filter::LevelFilter::from(CONFIG.log_level)),
+        )
+        .init();
+
+    tracing::info!("Starting OXIDOOR Server");
+    tracing::info!("Configuration: {:?}", CONFIG);
 }

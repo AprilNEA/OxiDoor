@@ -14,6 +14,16 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-fn main() {
-    embuild::espidf::sysenv::output();
+use thiserror::Error;
+use uuid::Uuid;
+
+#[derive(Error, Debug)]
+pub enum Error {
+    #[error("Database error: {0}")]
+    Database(#[from] sea_orm::DbErr),
+
+    #[error("Unknown error: {0}")]
+    Unknown(String),
 }
+
+pub type Result<T> = std::result::Result<T, Error>;

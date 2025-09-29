@@ -14,6 +14,6 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-fn main() {
-    embuild::espidf::sysenv::output();
-}
+pub mod config;
+pub mod database;
+pub mod error;

@@ -15,5 +15,5 @@
 // SPDX-License-Identifier: Apache-2.0
 
 fn main() {
-    embuild::espidf::sysenv::output();
+    println!("Hello, world!");
 }
